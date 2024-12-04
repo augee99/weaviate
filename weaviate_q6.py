@@ -34,13 +34,12 @@ def get_text_embedding_from_bedrock(text):
     return embeddings[0]
 # Example query text
 
-#query_text = "she set the tray on the glass table and gave herself an imaginary pat on the back for not spilling it , before claiming a seat on the middle of the couch . carrying trays decked with drinks and other liquids was not as easy as it looked . lecie had a newfound respect for those who did it for a living . the morning sun cast its golden hue across the clear , blue sky . lecie stretched past the tray , reaching for her sunglasses on the far side of the table . securing them in the crook of her finger , she dragged them toward her . shielding her eyes behind the shades , she relaxed enough to enjoy the cool morning breeze blowing in from the ocean , bringing with it the scent of the honeysuckle lining the edge of the property . lecie poured herself some orange juice and sat back , sipping it as she took in the view . `` gosh , '' she said out loud , even though she was the only one there . deidra , as far as she knew , was still sleeping , but lecie had brought a glass out for her just in case she happened to wake uncharacteristically early today . lecie gazed out at the ocean beyond the far side of her property . calm and still , it melded together with the early morning blue sky"
 
-#query_text = " walked downstairs and ran my hand along the polished wooden banister , loving the way the old grain felt against the pads of my fingers . this partof town was historic , dating back over one hundred years when confederate soldiers roamed the city"
+#query_text = "why was he sad?"a
 
-#query_text = "i had a love for everything old . it was one of the reasons i loved living in virginia . once i became a single mother , i had little time left for myself . my inner nerd had been seriously deprived over the last few years . right now , she was bouncing up and down in excitement . `` so , good surprise ? '' he asked , still seated in the car . `` yes ! perfect . now let 's go ! i want to see everything !'' laughing at my enthusiasm , he opened his door , quickly running around to open mine . he was too late . i was already out of the car , practically foaming at the mouth . i was like a kid in a candy store .my eyes were darting everywhere . there were gardens , an old barn , the house ... i wanted to see it all ! `` i figured a history lover would have visited all the local plantations by now , but i took a chance on this one because of its location and the fact that it was a bed and breakfast . `` it 's magnificent , '' i sighed . it was . whoever owned the property took precious care of it . the pristine gardens had winding paths , budding roses , and ivy covered arches that all lead to a view of the james river that"
+#query_text = "i used to go with natalie , but when she and ben got serious , i declined her invitations to spend the holidays with her family . it felt weird tagging along and i wanted to give them some space . natalie always begged me to join them"
 
-query_text = "why was he sad?"
+query_text = "i used to go with natalie , but when she and ben got serious , i declined her invitations to spend the holidays with her family . it felt weird tagging along and i wanted to give them some space . natalie always begged me to join them , but i lied and told her i would be fine and already had plans here . with a pang in my chest , i remembered the first time i spent christmas alone . i sat on my couch the whole day , watched a channel that played a christmas story nonstop , and bawled like a baby . after that , i went to the soup kitchen on holidays . i more or less came to terms with not having any family , but the fact that no one except natalie would notice if i died brought on the bout of depression . it was pathetic that i did n't have any other friends that i could spend the holidays with . absolutely pathetic . the serving spoon shook in my hands . i ca n't spend the rest of my life like this . the sting of tears threatened . in a few years i 'll be thirty . the soup kitchen faded away as depression wrapped its coils around my chest like a python , squeezing me of air . i gave up years ago on a happy , picture-perfect life , but it was hard to bear this"
 
 query_embedding = get_text_embedding_from_bedrock(query_text)
 
@@ -48,6 +47,7 @@ cohereCol = client.collections.get("CohereCollection_1")
 response = cohereCol.query.near_vector(
     near_vector=query_embedding,  # Your query vector goes here
     limit=4,
+    distance=0.25,
     include_vector=True,
     return_metadata=MetadataQuery(distance=True)
     #return_metadata=MetadataQuery(score=True, explain_score=True)
